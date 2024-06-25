@@ -17,10 +17,10 @@ const getAllProducts = async (req, res) => {
   }
   if (name) {
     //set the orderBy according to asc/desc
-    orderBy = { make: name === "asc" ? "asc" : "desc" };
+    orderBy.name = name === "asc" ? "asc" : "desc";
   }
   if (price) {
-    orderBy = { make: price === "asc" ? "asc" : "desc" };
+    orderBy.price = price === "asc" ? "asc" : "desc";
   }
 
   try {
