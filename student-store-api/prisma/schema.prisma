@@ -18,6 +18,25 @@ model products {
   name        String
   description String
   price       Int 
-  image_URL
+  image_URL   String
   category    Int
+}
+
+
+// I HAVE NOT ADDED TO MY PGADMIN
+model orders {
+  order_id    Int      @id @default(autoincrement())
+  customer_id Int
+  total_price Int
+  status      String
+  created_at  DateTime @default(now())
+}
+
+// I HAVE NOT ADDED TO MY PGADMIN
+model order_items {
+  order_item_id     Int   @id @default(autoincrement())
+  order_id          Int   @relation(fields: [orders.order_id], references: [order_id]) 
+  product_id        Int   @relation(fields: [products.id], references: [id])
+  quantity          Int 
+  price             Int 
 }
