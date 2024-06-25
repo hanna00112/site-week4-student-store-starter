@@ -13,30 +13,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model products {
+model Product {
   id          Int      @id @default(autoincrement())
   name        String
   description String
-  price       Int 
+  price       Float 
   image_URL   String
-  category    Int
+  category    String
+  OrderItem   OrderItem[]
 }
 
 
-// I HAVE NOT ADDED TO MY PGADMIN
-model orders {
+// I HAVE NOT ADDED TO MY PG-ADMIN
+model Order {
   order_id    Int      @id @default(autoincrement())
   customer_id Int
   total_price Int
   status      String
   created_at  DateTime @default(now())
+  OrderItem   OrderItem[]  
 }
 
-// I HAVE NOT ADDED TO MY PGADMIN
-model order_items {
+// I HAVE NOT ADDED TO MY PG-ADMIN
+model OrderItem {
   order_item_id     Int   @id @default(autoincrement())
-  order_id          Int   @relation(fields: [orders.order_id], references: [order_id]) 
-  product_id        Int   @relation(fields: [products.id], references: [id])
+  order_id          Int  
+  product_id        Int   
   quantity          Int 
-  price             Int 
+  price             Float
+  Order             Order   @relation(fields:[order_id], references:[order_id]) 
+  Product           Product   @relation(fields:[product_id], references:[id])
 }

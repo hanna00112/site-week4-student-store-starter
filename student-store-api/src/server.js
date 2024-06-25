@@ -1,17 +1,15 @@
+require("dotenv").config();
+const express = require("express");
+const app = express();
+const port = 3000;
+const productRoutes = require("../routes/productRoutes");
 
-const express = require('express')
-const app = express()
-const port = 3000
-const productRoutes = require("../routes/productRoutes")
-
-app.use(express.json()) // used for JSON file 
+app.use(express.json()); // used for JSON file
 
 app.get("/", (req, res) => {
-    res.send("Hello World! You are currently at the / route")
-}
-)
-app.use("/products", productRoutes) // used to access all products from productRoutes
-
+  res.send("Hello World! You are currently at the / route");
+});
+app.use("/products", productRoutes); // used to access all products from productRoutes
 
 /*
 CODE ADDED ON FRIDAY
@@ -37,12 +35,8 @@ app.get("/products", (req, res) => {
     }
     res.json(filteredProducts);
 })
-*/ 
+*/
 
-app.listen (port, () => {
-    console.log(`Server is running at http://localhost:${port}!`);
-})
-
-
-
-
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}!`);
+});
