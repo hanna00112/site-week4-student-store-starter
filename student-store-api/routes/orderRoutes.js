@@ -8,6 +8,10 @@ router.get("/", orderController.getAllOrders);
 router.get("/:id", orderController.getOrdersById);
 //add a new order
 router.post("/", orderController.createOrder);
+
+//  total price, add items, delete, 
+
+
 //create a new order
 router.put("/:id", orderController.updateOrder);
 //delete a order
