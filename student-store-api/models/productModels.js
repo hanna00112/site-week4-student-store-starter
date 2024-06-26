@@ -3,39 +3,39 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-// Function gets all the order
-const getAllOrders = async (filter = {}, orderBy = {}) => {
+// Function gets all the products
+const getAllProducts = async (filter = {}, orderBy = {}) => {
   return prisma.product.findMany({
     where: filter,
     orderBy: orderBy,
   });
 };
 
-//Function to get order by ID
-const getOrdersById = async (id) => {
-  return prisma.order.findUnique({ where: { id: parseInt(order_id) } });
+//Function to get car by ID
+const getProductsById = async (id) => {
+  return prisma.product.findUnique({ where: { id: parseInt(id) } });
 };
-//Function to create a new order
-const createOrder = async (orderData) => {
-  return prisma.order.create({ data: orderData });
+//Function to create a new product
+const createProduct = async (productData) => {
+  return prisma.product.create({ data: productData });
 };
-//Function to update a order
-const updateOrder = async (id, orderData) => {
-  return prisma.order.update({
-    where: { id: parseInt(order_id) },
-    data: orderData,
+//Function to update a product
+const updateProduct = async (id, productData) => {
+  return prisma.product.update({
+    where: { id: parseInt(id) },
+    data: productData,
   });
 };
-//Function to delete a order
-const deleteOrder = async (order_id) => {
-  return prisma.order.delete({ where: { id: parseInt(order_id) } });
+//Function to delete a product
+const deleteProduct = async (id) => {
+  return prisma.product.delete({ where: { id: parseInt(id) } });
 };
 
 //exporting that function
 module.exports = {
-  getAllOrders,
-  getOrdersById,
-  createOrder,
-  updateOrder,
-  deleteOrder,
+  getAllProducts,
+  getProductsById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };

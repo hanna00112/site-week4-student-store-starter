@@ -7,7 +7,6 @@ Similar function from productModels but also sending a response
 try -- if no products in array
 */
 const getAllProducts = async (req, res) => {
-
   const { name, category, price } = req.query;
   let filter = {}; //filter object
   let orderBy = {}; //orderBy - asc/desc
@@ -17,10 +16,10 @@ const getAllProducts = async (req, res) => {
   }
   if (name) {
     //set the orderBy according to asc/desc
-    orderBy.name = name === "asc" ? "asc" : "desc";
+    orderBy = { make: name === "asc" ? "asc" : "desc" };
   }
   if (price) {
-    orderBy.price = price === "asc" ? "asc" : "desc";
+    orderBy = { make: price === "asc" ? "asc" : "desc" };
   }
 
   try {
@@ -29,7 +28,7 @@ const getAllProducts = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-}
+};
 
 //Function to get product by ID
 const getProductsById = async (req, res) => {
@@ -86,8 +85,6 @@ const deleteProduct = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
-
 
 // export the function
 module.exports = {

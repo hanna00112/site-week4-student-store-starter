@@ -1,3 +1,5 @@
+
+const orderModel = require("../models/orderModels");
 const getAllOrders = async (req, res) => {
 /* USED FOR SORTING 
 
@@ -16,9 +18,8 @@ const getAllOrders = async (req, res) => {
       orderBy.price = price === "asc" ? "asc" : "desc";
     }
     */
-  
     try {
-      const orders = await orderModel.getAllOrders(filter, orderBy);
+      const orders = await orderModel.getAllOrders(); // add filter, orderBy
       res.status(200).json(orders);
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -28,7 +29,7 @@ const getAllOrders = async (req, res) => {
   //Function to get order by ID
   const getOrdersById = async (req, res) => {
     try {
-      const order = await orderModel.getOrdersById(req.params.id);
+      const order = await orderModel.getOrdersById(req.params.order_id);
       if (order) {
         res.status(200).json(order);
       } else {
@@ -42,6 +43,7 @@ const getAllOrders = async (req, res) => {
   //Function to create a new orders
   const createOrder = async (req, res) => {
     const orderData = req.body;
+    console.log('Received order data:', orderData);
     try {
       const newOrder = await orderModel.createOrder(orderData);
       res.status(201).json(newOrder);
@@ -54,7 +56,7 @@ const getAllOrders = async (req, res) => {
   const updateOrder = async (req, res) => {
     try {
       const updatedOrder = await orderModel.updateOrder(
-        req.params.id,
+        req.params.order_id,
         req.body
       );
       if (updatedOrder) {
@@ -70,7 +72,7 @@ const getAllOrders = async (req, res) => {
   //Function to delete a order
   const deleteOrder = async (req, res) => {
     try {
-      const deletedOrder = await orderModel.deleteOrder(req.params.id);
+      const deletedOrder = await orderModel.deleteOrder(req.params.order_id);
       if (deletedOrder) {
         res.status(200).json(deletedOrder);
       } else {

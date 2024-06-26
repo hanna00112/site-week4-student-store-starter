@@ -26,7 +26,7 @@ model Product {
 model Order {
   order_id    Int      @id @default(autoincrement())
   customer_id Int
-  total_price Int
+  total_price Float
   status      String
   created_at  DateTime @default(now())
   OrderItem   OrderItem[]  
@@ -40,4 +40,3 @@ model OrderItem {
   price             Float
   Order             Order   @relation(fields:[order_id], references:[order_id]) 
   Product           Product   @relation(fields:[product_id], references:[id])
-}
