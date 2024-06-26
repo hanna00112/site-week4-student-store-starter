@@ -10,6 +10,7 @@ app.get("/", (req, res) => {
   res.send("Hello World! You are currently at the / route");
 });
 app.use("/products", productRoutes); // used to access all products from productRoutes
+app.use("/orders", orderRoutes); // used to access all products from productRoutes
 
 /*
 CODE ADDED ON FRIDAY
