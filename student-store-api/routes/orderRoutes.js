@@ -9,7 +9,7 @@ router.get("/:order_id", orderController.getOrdersById);
 //add a new order
 router.post("/", orderController.createOrder);
 
-//create a new order
+//update a new order
 router.put("/:order_id", orderController.updateOrder);
 //delete a order
 router.delete("/:order_id", orderController.deleteOrder);

@@ -23,7 +23,7 @@ const createOrder = async (orderData) => {
       customer_id: parseInt(orderData.customer_id),
       total_price: 0,
       status: orderData.status,
-      include: {OrderItem: true}
+      //include: {OrderItem: true}
     },
   });
 };

@@ -7,8 +7,8 @@ Submitted by: Hanna Abrahem
 #### CORE FEATURES
 
 
-- [ ] **Database Creation**: Set up a Postgres database to store information about products and orders.
-  - [ ] Use the provided schema to create tables for `products`, `orders`, and `order_items`.
+- [X] **Database Creation**: Set up a Postgres database to store information about products and orders.
+  - [X] Use the provided schema to create tables for `products`, `orders`, and `order_items`.
 - [X] **Products Model**: Develop a model to represent individual items available in the store. 
   - [X] This model should include attributes such as `id`, `name`, `description`, `price`, `image_url`, and `category`.
   - [X] Implement methods for CRUD operations on products.
@@ -52,15 +52,12 @@ Submitted by: Hanna Abrahem
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. (🚫 Remove this paragraph after adding walkthrough video)
-
-`ADD_EMBEDDED_CODE_HERE`
+https://www.loom.com/share/34f7e683c1d84980b03c6718477a0b68?sid=78f0798a-6bd0-4662-bdd8-a6b95e3d07e5 
 
 ### Reflection
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
-
-Add your response here
+I really find a lot of value through the code walk throughs during the lecture so having more of those for some features that were needed in project would have been really helpful
 
 
 
