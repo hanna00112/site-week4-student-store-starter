@@ -6,22 +6,45 @@ import Sidebar from "../Sidebar/Sidebar";
 import Home from "../Home/Home";
 import ProductDetail from "../ProductDetail/ProductDetail";
 import NotFound from "../NotFound/NotFound";
-import { removeFromCart, addToCart, getQuantityOfItemInCart, getTotalItemsInCart } from "../../utils/cart";
+import {
+  removeFromCart,
+  addToCart,
+  getQuantityOfItemInCart,
+  getTotalItemsInCart,
+} from "../../utils/cart";
 import "./App.css";
 
-function App() {
+const devUrl = "http://localhost:3000";
 
+function App() {
   // State variables
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All Categories");
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [userInfo, setUserInfo] = useState({ name: "", dorm_number: ""});
-  const [products, setProducts] = useState([]);
+  const [userInfo, setUserInfo] = useState({ name: "", dorm_number: "" });
+  const [products, setProducts] = useState([]); // ADD USE EFFECT
   const [cart, setCart] = useState({});
-  const [isFetching, setIsFetching] = useState(false);
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [isFetching, setIsFetching] = useState(false); // ADD USE EFFECT
+  const [isCheckingOut, setIsCheckingOut] = useState(false); // ADD USE EFFECT
   const [error, setError] = useState(null);
   const [order, setOrder] = useState(null);
+
+  useEffect(() => {
+    setIsFetching(true)
+    async function fetchProduct() {
+      try {
+        const response = await axios.get(`${devUrl}/products`);
+        console.log(response, "response");
+        setProducts(response.data);
+      }
+      catch (error) {
+        console.error("error fetching product", error)
+      } finally {
+        setIsFetching(false)
+      }
+    }
+    fetchProduct()
+  }, [])
 
   // Toggles sidebar
   const toggleSidebar = () => setSidebarOpen((isOpen) => !isOpen);
@@ -36,9 +59,7 @@ function App() {
     setSearchInputValue(event.target.value);
   };
 
-  const handleOnCheckout = async () => {
-  }
-
+  const handleOnCheckout = async () => {};
 
   return (
     <div className="App">
@@ -116,4 +137,3 @@ function App() {
 }
 
 export default App;
- 

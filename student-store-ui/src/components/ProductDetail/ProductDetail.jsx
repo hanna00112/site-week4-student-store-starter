@@ -5,13 +5,29 @@ import NotFound from "../NotFound/NotFound";
 import { formatPrice } from "../../utils/format";
 import "./ProductDetail.css";
 
+const devUrl = "http://localhost:3000";
+
 function ProductDetail({ addToCart, removeFromCart, getQuantityOfItemInCart }) {
-  
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    setIsFetching(true);
+    async function fetchProduct() {
+      try {
+        const response = await axios.get(`${devUrl}/products/${productId}`);
+        console.log(response, "response");
+        setProduct(response.data);
+      } catch (error) {
+        console.error("error fetching product", error);
+      } finally {
+        setIsFetching(false);
+      }
+    }
+    fetchProduct();
+  }, []);
 
   if (error) {
     return <NotFound />;
@@ -25,7 +41,7 @@ function ProductDetail({ addToCart, removeFromCart, getQuantityOfItemInCart }) {
 
   const handleAddToCart = () => {
     if (product.id) {
-      addToCart(product)
+      addToCart(product);
     }
   };
 
@@ -39,7 +55,10 @@ function ProductDetail({ addToCart, removeFromCart, getQuantityOfItemInCart }) {
     <div className="ProductDetail">
       <div className="product-card">
         <div className="media">
-          <img src={product.image_url || "/placeholder.png"} alt={product.name} />
+          <img
+            src={product.image_url || "/placeholder.png"}
+            alt={product.name}
+          />
         </div>
         <div className="product-info">
           <p className="product-name">{product.name}</p>
@@ -47,14 +66,17 @@ function ProductDetail({ addToCart, removeFromCart, getQuantityOfItemInCart }) {
           <p className="description">{product.description}</p>
           <div className="actions">
             <button onClick={handleAddToCart}>Add to Cart</button>
-            {quantity > 0 && <button onClick={handleRemoveFromCart}>Remove from Cart</button>}
-            {quantity > 0 && <span className="quantity">Quantity: {quantity}</span>}
+            {quantity > 0 && (
+              <button onClick={handleRemoveFromCart}>Remove from Cart</button>
+            )}
+            {quantity > 0 && (
+              <span className="quantity">Quantity: {quantity}</span>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 }
-
 
 export default ProductDetail;
