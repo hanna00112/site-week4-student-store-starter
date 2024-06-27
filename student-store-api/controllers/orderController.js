@@ -82,12 +82,39 @@ const getAllOrders = async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   };
-  
+
+const addItemToOrder = async (req, res) => {
+  try {
+    const orderItem = await orderModel.addItemToOrder(req.params.order_id, req.body);
+    res.json(orderItem);
+  }
+  catch (error){
+    console.error("Error adding item to order:", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+}
+
+const calculateOrderTotal = async (req, res) => {
+  try {
+    const orderItem = await orderModel.calculateOrderTotal(req.params.order_id);
+    if (orderItem) {
+    res.status(201).json(orderItem);
+  } else {
+    res.status(404).json( {error: "Order not found"} )
+  }
+  }catch (error){
+    console.error("Error calculating item to order:", error);
+    res.status(500).json({error: "Internal server error"});
+  }
+}
+
   // export the function
   module.exports = {
     getAllOrders,
     getOrdersById,
     createOrder,
     updateOrder,
-    deleteOrder
+    deleteOrder, 
+    addItemToOrder,
+    calculateOrderTotal
   };

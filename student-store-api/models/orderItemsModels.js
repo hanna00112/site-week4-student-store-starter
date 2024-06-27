@@ -18,7 +18,12 @@ const getOrderItemsById = async (id) => {
 
 //Function to create a new order
 const createOrderItem = async (orderItemData) => {
-    return prisma.orderItem.create( {data: { orderItemData }});
+    return prisma.orderItem.create( {data: { 
+      order_id: parseInt(orderItemData.order_id),
+      product_id: parseInt(orderItemData.product_id),
+      quantity: parseInt(orderItemData.quantity),
+      price: parseFloat(orderItemData.price) 
+    }});
   };
 
 //Function to update a order

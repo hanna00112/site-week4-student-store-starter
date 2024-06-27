@@ -29,7 +29,7 @@ const createOrderItem = async (req, res) => {
     const orderItemData = req.body;
     console.log('Received order Item data:', orderItemData);
     try {
-      const newOrderItem = await orderItemModel.createOrderItem(orderItemData);
+      const newOrderItem = await orderItemsModel.createOrderItem(orderItemData);
       res.status(201).json(newOrderItem);
     } catch (error) {
       res.status(400).json({ error: error.message });

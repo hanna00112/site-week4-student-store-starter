@@ -9,12 +9,13 @@ router.get("/:id", orderController.getOrdersById);
 //add a new order
 router.post("/", orderController.createOrder);
 
-//  total price, add items, delete, 
-
-
 //create a new order
 router.put("/:id", orderController.updateOrder);
 //delete a order
 router.delete("/:order_id", orderController.deleteOrder);
+
+// New endpoint for adding items to an order
+router.post("/:order_id/items", orderController.addItemToOrder);
+router.get("/:order_id/total", orderController.calculateOrderTotal);
 
 module.exports = router;
