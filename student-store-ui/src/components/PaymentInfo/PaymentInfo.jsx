@@ -1,6 +1,12 @@
-import "./PaymentInfo.css"
+import "./PaymentInfo.css";
 
-export default function PaymentInfo({ userInfo, setUserInfo, handleOnCheckout, isCheckingOut, error }) {
+export default function PaymentInfo({
+  userInfo,
+  setUserInfo,
+  handleOnCheckout,
+  isCheckingOut,
+  error,
+}) {
   return (
     <div className="PaymentInfo">
       <h3 className="">
@@ -15,22 +21,24 @@ export default function PaymentInfo({ userInfo, setUserInfo, handleOnCheckout, i
           <input
             className="input"
             type="text"
-            placeholder="Name"
-            value={userInfo.name}
-            onChange={(e) => setUserInfo((u) => ({ ...u, name: e.target.value }))}
+            placeholder="ID"
+            value={userInfo.id}
+            onChange={(e) => setUserInfo((u) => ({ ...u, id: e.target.value }))}
           />
         </div>
       </div>
 
       <div className="input-field">
-        <label className="label">Dorm Room Number</label>
+        <label className="label">Email</label>
         <div className="control">
           <input
             className="input"
             type="email"
             placeholder="Email"
-            value={userInfo.id}
-            onChange={(e) => setUserInfo((u) => ({ ...u, email: e.target.value }))}
+            value={userInfo.email}
+            onChange={(e) =>
+              setUserInfo((u) => ({ ...u, email: e.target.value }))
+            }
           />
         </div>
       </div>
@@ -54,11 +62,15 @@ export default function PaymentInfo({ userInfo, setUserInfo, handleOnCheckout, i
 
       <div className="field">
         <div className="control">
-          <button className="button" disabled={isCheckingOut} onClick={handleOnCheckout}>
+          <button
+            className="button"
+            disabled={isCheckingOut}
+            onClick={handleOnCheckout}
+          >
             Submit
           </button>
         </div>
       </div>
     </div>
-  )
+  );
 }

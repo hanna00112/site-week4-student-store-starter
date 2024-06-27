@@ -21,7 +21,7 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All Categories");
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [userInfo, setUserInfo] = useState({ name: "", dorm_number: "" });
+  const [userInfo, setUserInfo] = useState({ id: "", email: "" });
   const [products, setProducts] = useState([]); // ADD USE EFFECT
   const [cart, setCart] = useState({});
   const [isFetching, setIsFetching] = useState(false); // ADD USE EFFECT
@@ -30,21 +30,20 @@ function App() {
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    setIsFetching(true)
+    setIsFetching(true);
     async function fetchProduct() {
       try {
         const response = await axios.get(`${devUrl}/products`);
         console.log(response, "response");
         setProducts(response.data);
-      }
-      catch (error) {
-        console.error("error fetching product", error)
+      } catch (error) {
+        console.error("error fetching product", error);
       } finally {
-        setIsFetching(false)
+        setIsFetching(false);
       }
     }
-    fetchProduct()
-  }, [])
+    fetchProduct();
+  }, []);
 
   // Toggles sidebar
   const toggleSidebar = () => setSidebarOpen((isOpen) => !isOpen);
@@ -59,7 +58,35 @@ function App() {
     setSearchInputValue(event.target.value);
   };
 
-  const handleOnCheckout = async () => {};
+  const handleOnCheckout = async () => {
+    setIsCheckingOut(true);
+    const response = await axios.post(`${devUrl}/orders`, {
+      customer_id: parseInt(userInfo.id),
+      status: "in progress",
+    });
+    console.log(response);
+    const data = response.data; // making empty order
+    setOrder(data);
+
+    console.log(cart);
+
+    for (const [key, value] of Object.entries(cart)) {
+      await axios.post(`${devUrl}/orders/${data.order_id}/items`, {
+        product_id: parseInt(key),
+        quantity: parseInt(value),
+      });
+    }
+
+    await axios.put(`${devUrl}/orders/${data.order_id}`, {
+      status: "completed",
+    });
+    const response2 = await axios.get(`${devUrl}/orders/${data.order_id}`);
+    const data2 = response2.data;
+    setOrder(data2);
+
+    setCart({}); // emptying the cart
+    setIsCheckingOut(false);
+  };
 
   return (
     <div className="App">

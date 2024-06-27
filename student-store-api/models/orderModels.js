@@ -8,6 +8,7 @@ const getAllOrders = async (filter = {}, orderBy = {}) => {
   return prisma.order.findMany({
     where: filter,
     orderBy: orderBy,
+    include: {OrderItem: true}
   });
 };
 
@@ -20,8 +21,9 @@ const createOrder = async (orderData) => {
   return prisma.order.create({
     data: {
       customer_id: parseInt(orderData.customer_id),
-      total_price: parseFloat(orderData.total_price),
+      total_price: 0,
       status: orderData.status,
+      include: {OrderItem: true}
     },
   });
 };
@@ -30,11 +32,12 @@ const updateOrder = async (order_id, orderData) => {
   return prisma.order.update({
     where: { order_id: parseInt(order_id) },
     data: orderData,
+    include: {OrderItem: true}
   });
 };
 //Function to delete a order
 const deleteOrder = async (order_id) => {
-  return prisma.order.delete({ where: { order_id: parseInt(order_id) } });
+  return prisma.order.delete({ where: { order_id: parseInt(order_id) }, include: {OrderItem: true} });
 };
 
 /*
@@ -73,9 +76,8 @@ const calculateOrderTotal = async (orderId) => {
   const order = await prisma.order.findUnique({
     where: { order_id: parseInt(orderId) },
   });
-  return order.total_price
-
-}
+  return order.total_price;
+};
 
 //exporting that function
 module.exports = {
@@ -85,5 +87,5 @@ module.exports = {
   updateOrder,
   deleteOrder,
   addItemToOrder,
-  calculateOrderTotal
+  calculateOrderTotal,
 };

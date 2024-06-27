@@ -5,12 +5,12 @@ const orderController = require("../controllers/orderController");
 // getting all the orders
 router.get("/", orderController.getAllOrders);
 //get orders by ID
-router.get("/:id", orderController.getOrdersById);
+router.get("/:order_id", orderController.getOrdersById);
 //add a new order
 router.post("/", orderController.createOrder);
 
 //create a new order
-router.put("/:id", orderController.updateOrder);
+router.put("/:order_id", orderController.updateOrder);
 //delete a order
 router.delete("/:order_id", orderController.deleteOrder);
 
